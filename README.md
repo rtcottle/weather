@@ -20,6 +20,9 @@ TODO: Link for the site:
 
 README reference: https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide
 
+Weather API: https://openweathermap.org/forecast5#format
+Geocoding API: https://openweathermap.org/api/geocoding-api
+
 ## License
 
 This project is under the [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
