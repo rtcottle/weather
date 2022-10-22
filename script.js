@@ -44,21 +44,26 @@ function getApi() {
         .then(function (data) {
           console.log(data);
           console.log(data.list[0].main.temp);
-          for (var i = 0; i < data.length; i++) {
-            var weatherHeader = document.createElement("header");
-            var fiveDayForecast = document.createElement("h3");
-            var weatherContainer = document.createElement("div");
-            var dayCard = document.createElement("span");
-            cardContainer.appendChild(weatherHeader);
-            cardContainer.appendChild(fiveDayForecast);
-            cardContainer.appendChild(weatherContainer);
-            cardContainer.appendChild(dayCard);
-            weatherHeader.setAttribute("class", "border border-dark");
-            dayCard.setAttribute("class", "bg-dark text-light");
-            dayCard.textContent = "Hello";
-            weatherContainer.textContent = "Hello";
-            weatherHeader.textContent = "Hello";
-          }
+          var todaysWeather = {
+            temp: data.list[0].main.temp,
+            icon: data.list[0].weather[0].icon,
+            description: data.list[0].weather[0].description,
+            wind: data.list[0].wind.speed,
+          };
+          console.log(todaysWeather);
+          var weatherHeader = document.createElement("header");
+          weatherHeader.textContent = "Hello";
+          weatherHeader.setAttribute("class", "border border-dark");
+          cardContainer.appendChild(weatherHeader);
+          //   var fiveDayForecast = document.createElement("h3");
+          //   var weatherContainer = document.createElement("div");
+          //   var dayCard = document.createElement("span");
+          //   cardContainer.appendChild(fiveDayForecast);
+          //   cardContainer.appendChild(weatherContainer);
+          //   cardContainer.appendChild(dayCard);
+          //   dayCard.setAttribute("class", "bg-dark text-light");
+          //   dayCard.textContent = "Hello";
+          //   weatherContainer.textContent = "Hello";
         });
 
       //these might go under the getApi function after the for loop.
