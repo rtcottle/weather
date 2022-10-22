@@ -22,7 +22,7 @@ function renderCities() {
 
 function getApi() {
   localStorage.setItem(citySearch.value, JSON.stringify(citySearch.value));
-
+  //api call to get the latitude and longitude based on the city name.
   var requestLatLon = `http://api.openweathermap.org/geo/1.0/direct?q=${citySearch.value}&limit=5&appid=${APIKey}
 `;
   fetch(requestLatLon)
@@ -35,7 +35,7 @@ function getApi() {
       var lon = data[0].lon;
       console.log(lat);
       console.log(lon);
-
+      //api call to push the retrieved lat/lon to retrieve weather information
       var requestWeather = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}&units=imperial`;
       fetch(requestWeather)
         .then(function (response) {
@@ -45,28 +45,32 @@ function getApi() {
           console.log(data);
           console.log(data.list[0].main.temp);
           var todaysWeather = {
+            date: data.list[0].dt_txt,
             temp: data.list[0].main.temp,
             icon: data.list[0].weather[0].icon,
             description: data.list[0].weather[0].description,
             wind: data.list[0].wind.speed,
           };
           console.log(todaysWeather);
-          var weatherHeader = document.createElement("header");
-          weatherHeader.textContent = "Hello";
-          weatherHeader.setAttribute("class", "border border-dark");
-          cardContainer.appendChild(weatherHeader);
-          //   var fiveDayForecast = document.createElement("h3");
-          //   var weatherContainer = document.createElement("div");
-          //   var dayCard = document.createElement("span");
-          //   cardContainer.appendChild(fiveDayForecast);
-          //   cardContainer.appendChild(weatherContainer);
-          //   cardContainer.appendChild(dayCard);
-          //   dayCard.setAttribute("class", "bg-dark text-light");
-          //   dayCard.textContent = "Hello";
-          //   weatherContainer.textContent = "Hello";
-        });
 
-      //these might go under the getApi function after the for loop.
+          function weatherCardHeader() {
+            var weatherHeader = document.createElement("h2");
+            var temp = document.createElement("h3");
+            var describeTemp = document.createElement("h3");
+            var windStatus = document.createElement("h3");
+            weatherHeader.textContent = todaysWeather.date;
+            weatherHeader.setAttribute("class", "border border-dark");
+            cardContainer.appendChild(weatherHeader);
+            weatherHeader.appendChild(temp);
+            weatherHeader.appendChild(describeTemp);
+            weatherHeader.appendChild(windStatus);
+            temp.textContent = "Temp";
+            describeTemp.textContent = "Temp description";
+            windStatus.textContent = "Wind";
+          }
+
+          weatherCardHeader();
+        });
     });
 }
 
