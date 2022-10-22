@@ -1,7 +1,5 @@
 /*
-TODO: Event listener -- generate elements
-TODO: Display one day
-TODO: Display days 2-6
+TODO: Display days 2-5
 TODO: Retain search as selectable button
 TODO: remove text from search upon click
 */
@@ -67,6 +65,15 @@ function getApi() {
             temp.textContent = "Temp";
             describeTemp.textContent = "Temp description";
             windStatus.textContent = "Wind";
+            //generate next 5 days. TODO: FIX THIS
+            //TODO: add function here to generate the 5-day forecast
+            for (let i = data.list.length - 1 - 2; i > 0; i -= 8) {
+              if (data.list === 6) {
+                break;
+              } else {
+                cardContainer.appendChild(weatherCardHeader(data.list[i]));
+              }
+            }
           }
 
           weatherCardHeader();
