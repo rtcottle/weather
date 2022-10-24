@@ -23,6 +23,8 @@ README reference: https://coding-boot-camp.github.io/full-stack/github/professio
 Weather API: https://openweathermap.org/forecast5#format
 Geocoding API: https://openweathermap.org/api/geocoding-api
 
+Icon help: https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon
+
 ## License
 
 This project is under the [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
