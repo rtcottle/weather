@@ -8,20 +8,35 @@ var searchBtn = document.querySelector(".btn");
 var APIKey = "7b5f03654b5a109a294b890d0283e4e0";
 var cardContainer = document.getElementById("card-container");
 var citySearch = document.getElementById("location");
+var recentCities = [];
 
 //retain previous searches as buttons
-// function renderCities() {
-//   var pastCities = JSON.parse(localStorage.getItem("city"));
-//   pastCities.forEach(() => {
-//     var listCity = document.createElement("button");
-//     listCity.textContent = this.pastCities;
-//     listCity.setAttribute("class", "btn btn-secondary w-100");
-//   });
-//   listCity.ong("click", getApi);
-// }
+//TODO: push pastCities into the recentCities array.
+//TODO: render all recentCities into buttons.
+// TODO: all generated buttons need to have the "past" class
+function renderCities() {
+  recentCities.push(localStorage.getItem("pastCities"));
+  var pastCities = JSON.parse(recentCities);
+  console.log(pastCities);
+  // recentCities.forEach(() => {
+  //   var listCity = document.createElement("button");
+  //   listCity.textContent = [i].pastCities;
+  //   listCity.setAttribute("class", "past btn btn-secondary w-100");
+  // });
+  //   renderCities.on("click", function () {
+  //     getElementById("location").value = pastCities;
+  //   });
+  // }
+  //TODO: this is a function to select the past cities
+  // function pastCitySelect() {
+  //   document.querySelectorAll("past").addEventListener("click", function () {
+  //     document.getElementById("location").value = this;
+  //     getApi();
+  //   });
+}
 
 function getApi() {
-  localStorage.setItem("city", JSON.stringify(citySearch.value));
+  localStorage.setItem("pastCities", JSON.stringify(citySearch.value));
   //api call to get the latitude and longitude based on the city name.
   var requestLatLon = `http://api.openweathermap.org/geo/1.0/direct?q=${citySearch.value}&limit=5&appid=${APIKey}
 `;
@@ -60,15 +75,15 @@ function getApi() {
             var describeTemp = document.createElement("h3");
             var windStatus = document.createElement("h3");
             var humidity = document.createElement("h3");
-            var icon = document.createElement("i");
+            var icon = document.createElement("span");
             var iconCode = todaysWeather.icon;
             var iconURL =
               "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
             weatherHeader.textContent = "Date: " + todaysWeather.date;
             weatherHeader.setAttribute("class", "border border-dark");
             cardContainer.appendChild(weatherHeader);
+            weatherHeader.appendChild(icon);
             weatherHeader.appendChild(temp);
-            temp.append(icon);
             weatherHeader.appendChild(humidity);
             weatherHeader.appendChild(describeTemp);
             weatherHeader.appendChild(windStatus);
@@ -88,7 +103,7 @@ function getApi() {
             //   }
             // }
           }
-          // renderCities();
+          renderCities();
           weatherCardHeader();
         });
     });
