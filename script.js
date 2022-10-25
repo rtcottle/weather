@@ -61,7 +61,7 @@ function getApi() {
           console.log(data);
           console.log(data.list[0].main.temp);
           var todaysWeather = {
-            date: data.list[0].dt_txt,
+            date: dayjs().format(`MM/D/YY`),
             temp: data.list[0].main.temp,
             icon: data.list[0].weather[0].icon,
             humidity: data.list[0].main.humidity,

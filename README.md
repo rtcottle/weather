@@ -25,6 +25,8 @@ Geocoding API: https://openweathermap.org/api/geocoding-api
 
 Icon help: https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon
 
+DayJS: https://day.js.org/en/
+
 ## License
 
 This project is under the [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
