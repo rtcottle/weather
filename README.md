@@ -2,7 +2,7 @@
 
 ## Description
 
-This challenge was to build a 5-Day Weather App that utilizes API data to dynamically create items that will provide the user with a forcast.
+This challenge was to build a 5-Day Weather App that utilizes API data to dynamically create items that will provide the user with a forecast.
 
 - The goal of this project is to use APIs to make this app functional.
 
