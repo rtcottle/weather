@@ -33,8 +33,8 @@ This project is under the [![License: MIT](https://img.shields.io/badge/License-
 
 ## Features
 
-This project updates with the time of day and allows you to plan accordingly.
+This project displays the weather basics for the desired location for the current day and 5 forecasted days.
 
 ## Tests
 
-Test this functionality by putting in your events and hitting the save icon on the right. Refresh your browser and see if it persists.
+Test this functionality by putting in your desired city name and hitting search!
