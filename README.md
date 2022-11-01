@@ -14,7 +14,7 @@ N/A
 
 Link for the site: https://rtcottle.github.io/weather/
 
-![alt text](./screenshot.png)
+![weather app screenshot](./screenshot-weather.png)
 
 ## Credits
 
