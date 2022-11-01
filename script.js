@@ -39,8 +39,8 @@ function renderCities() {
     // console.log(recentCities);
     localStorage.setItem("pastCities", JSON.stringify(recentCities));
     //api call to get the latitude and longitude based on the city name.
-    var requestLatLon = `http://api.openweathermap.org/geo/1.0/direct?q=${citySearch.value}&limit=5&appid=${APIKey}
-`;
+    var requestLatLon = `https://api.openweathermap.org/geo/1.0/direct?q=${citySearch.value}&limit=5&appid=${APIKey}`;
+
     fetch(requestLatLon)
       .then(function (response) {
         return response.json();
