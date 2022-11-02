@@ -59,7 +59,6 @@ function renderCities() {
           })
           .then(function (data) {
             console.log(data);
-            // console.log(data.list[0].main.temp);
             var todaysWeather = {
               name: data.city.name,
               date: dayjs().format(`MM/D/YY`),
@@ -69,7 +68,8 @@ function renderCities() {
               description: data.list[0].weather[0].description,
               wind: data.list[0].wind.speed,
             };
-            // console.log(todaysWeather);
+            var dataList = [data.list[13].dt_txt];
+            console.log(dataList);
 
             function weatherCardHeader() {
               cardContainer.innerHTML = "";
@@ -101,7 +101,7 @@ function renderCities() {
               humidity.textContent =
                 "Humidity: " + todaysWeather.humidity + "%";
 
-              //TODO: fix this to get multiple days to display
+              //display multiple cards
               for (let i = 0; i < 40; i++) {
                 const dateInMilliseconds = data.list[i].dt * 1000;
                 const useableDate = new Date(dateInMilliseconds);
@@ -109,18 +109,23 @@ function renderCities() {
                 var weeksWeather = {
                   name: data.city.name,
                   date: dayjs().format(`MM/D/YY`),
-                  temp: data.list[0].main.temp,
-                  icon: data.list[0].weather[0].icon,
-                  humidity: data.list[0].main.humidity,
-                  description: data.list[0].weather[0].description,
-                  wind: data.list[0].wind.speed,
+                  temp: data.list[i].main.temp,
+                  icon: data.list[i].weather[0].icon,
+                  humidity: data.list[i].main.humidity,
+                  description: data.list[i].weather[0].description,
+                  wind: data.list[i].wind.speed,
                 };
+                // console.log(hours);
+                // console.log(data.list[0].dt_txt);
+                // console.log(typeof data.list[0].dt_txt);
+                var dataList = [data.list[0].dt_txt];
+                // console.log(dataList);
+                // console.log(weeksWeather);
                 if (hours === 15) {
-                  console.log(useableDate);
-                  console.log(weeksWeather);
-
-                  // all work is in here //
-                  // build elements to the page //
+                  // if (dataList.includes("15:00:00")) {
+                  // console.log(useableDate);
+                  // console.log(weeksWeather);
+                  // formatting for multiple cards
                   var weeklyHeader = document.createElement("h2");
                   var weeklyTemp = document.createElement("h3");
                   var weeklyDescribeTemp = document.createElement("h3");
@@ -132,7 +137,8 @@ function renderCities() {
                     "http://openweathermap.org/img/wn/" +
                     weeklyIconCode +
                     "@2x.png";
-                  weeklyHeader.textContent = "Date: " + weeksWeather.date;
+                  weeklyHeader.textContent = "Date: " + weeksWeather.date[i];
+                  console.log(weeksWeather);
                   weeklyHeader.setAttribute(
                     "class",
                     "border border-dark text-light bg-dark"
