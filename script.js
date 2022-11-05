@@ -68,8 +68,7 @@ function renderCities() {
               description: data.list[0].weather[0].description,
               wind: data.list[0].wind.speed,
             };
-            var dataList = [data.list[13].dt_txt];
-            console.log(dataList);
+            console.log(todaysWeather);
 
             function weatherCardHeader() {
               cardContainer.innerHTML = "";
@@ -108,7 +107,7 @@ function renderCities() {
                 const hours = useableDate.getHours();
                 var weeksWeather = {
                   name: data.city.name,
-                  date: dayjs().format(`MM/D/YY`),
+                  date: todaysWeather.date++,
                   temp: data.list[i].main.temp,
                   icon: data.list[i].weather[0].icon,
                   humidity: data.list[i].main.humidity,
@@ -118,7 +117,7 @@ function renderCities() {
                 // console.log(hours);
                 // console.log(data.list[0].dt_txt);
                 // console.log(typeof data.list[0].dt_txt);
-                var dataList = [data.list[0].dt_txt];
+                // var dataList = [data.list[0].dt_txt];
                 // console.log(dataList);
                 // console.log(weeksWeather);
                 if (hours === 15) {
@@ -141,7 +140,7 @@ function renderCities() {
                   console.log(weeksWeather);
                   weeklyHeader.setAttribute(
                     "class",
-                    "border border-dark text-light bg-dark"
+                    "border border-dark text-light bg-dark col-sm-2"
                   );
                   cardContainer.appendChild(weeklyHeader);
                   weeklyHeader.appendChild(weeklyIcon);
