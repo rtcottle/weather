@@ -86,7 +86,6 @@ function renderCities() {
               weatherHeader.textContent = "Date: " + todaysWeather.date;
               weatherHeader.setAttribute("class", "border border-dark");
               cardContainer.appendChild(weatherName);
-              console.log(weatherName);
               cardContainer.appendChild(weatherHeader);
               weatherHeader.appendChild(icon);
               weatherHeader.appendChild(temp);
@@ -103,28 +102,22 @@ function renderCities() {
               //display multiple cards
               for (let i = 0; i < 40; i++) {
                 const dateInMilliseconds = data.list[i].dt * 1000;
+                // console.log(dateInMilliseconds);
                 const useableDate = new Date(dateInMilliseconds);
+                console.log(useableDate);
                 const hours = useableDate.getHours();
                 var weeksWeather = {
                   name: data.city.name,
-                  date: todaysWeather.date++,
+                  date: useableDate,
                   temp: data.list[i].main.temp,
                   icon: data.list[i].weather[0].icon,
                   humidity: data.list[i].main.humidity,
                   description: data.list[i].weather[0].description,
                   wind: data.list[i].wind.speed,
                 };
-                // console.log(hours);
-                // console.log(data.list[0].dt_txt);
-                // console.log(typeof data.list[0].dt_txt);
-                // var dataList = [data.list[0].dt_txt];
-                // console.log(dataList);
-                // console.log(weeksWeather);
-                if (hours === 15) {
-                  // if (dataList.includes("15:00:00")) {
-                  // console.log(useableDate);
-                  // console.log(weeksWeather);
+                if (hours === 14) {
                   // formatting for multiple cards
+                  var weeklyContainer = document.createElement("div");
                   var weeklyHeader = document.createElement("h2");
                   var weeklyTemp = document.createElement("h3");
                   var weeklyDescribeTemp = document.createElement("h3");
@@ -136,18 +129,13 @@ function renderCities() {
                     "http://openweathermap.org/img/wn/" +
                     weeklyIconCode +
                     "@2x.png";
+                  weeklyContainer.setAttribute("class", "row");
                   weeklyHeader.textContent = "Date: " + weeksWeather.date[i];
                   console.log(weeksWeather);
                   weeklyHeader.setAttribute(
                     "class",
-                    "border border-dark text-light bg-dark col-sm-2"
+                    "border border-dark text-light bg-dark"
                   );
-                  cardContainer.appendChild(weeklyHeader);
-                  weeklyHeader.appendChild(weeklyIcon);
-                  weeklyHeader.appendChild(weeklyTemp);
-                  weeklyHeader.appendChild(weeklyHumidity);
-                  weeklyHeader.appendChild(weeklyDescribeTemp);
-                  weeklyHeader.appendChild(weeklyWindStatus);
                   weeklyTemp.textContent = "Temp(F): " + weeksWeather.temp;
                   weeklyIcon.setAttribute("src", weeklyIconURL);
                   weeklyDescribeTemp.textContent = weeksWeather.description;
@@ -155,6 +143,13 @@ function renderCities() {
                     "Wind: " + weeksWeather.wind + " MPH";
                   weeklyHumidity.textContent =
                     "Humidity: " + weeksWeather.humidity + "%";
+                  cardContainer.appendChild(weeklyContainer);
+                  weeklyContainer.appendChild(weeklyHeader);
+                  weeklyHeader.appendChild(weeklyIcon);
+                  weeklyHeader.appendChild(weeklyTemp);
+                  weeklyHeader.appendChild(weeklyHumidity);
+                  weeklyHeader.appendChild(weeklyDescribeTemp);
+                  weeklyHeader.appendChild(weeklyWindStatus);
                 }
               }
             }
