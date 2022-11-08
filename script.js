@@ -61,14 +61,14 @@ function renderCities() {
             console.log(data);
             var todaysWeather = {
               name: data.city.name,
-              date: dayjs().format(`MM/D/YY`),
+              date: data.list[0].dt_txt.substr(0, 10),
               temp: data.list[0].main.temp,
               icon: data.list[0].weather[0].icon,
               humidity: data.list[0].main.humidity,
               description: data.list[0].weather[0].description,
               wind: data.list[0].wind.speed,
             };
-            console.log(todaysWeather);
+            console.log(todaysWeather.date);
 
             function weatherCardHeader() {
               cardContainer.innerHTML = "";
@@ -101,21 +101,23 @@ function renderCities() {
 
               //display multiple cards
               for (let i = 0; i < 40; i++) {
-                const dateInMilliseconds = data.list[i].dt * 1000;
+                // const dateInMilliseconds = data.list[i].dt * 1000;
                 // console.log(dateInMilliseconds);
-                const useableDate = new Date(dateInMilliseconds);
-                console.log(useableDate);
-                const hours = useableDate.getHours();
-                var weeksWeather = {
-                  name: data.city.name,
-                  date: useableDate,
-                  temp: data.list[i].main.temp,
-                  icon: data.list[i].weather[0].icon,
-                  humidity: data.list[i].main.humidity,
-                  description: data.list[i].weather[0].description,
-                  wind: data.list[i].wind.speed,
-                };
-                if (hours === 14) {
+                // const useableDate = new Date(dateInMilliseconds);
+                // console.log(useableDate);
+                // const hours = useableDate.getHours();
+                if (data.list[i].dt_txt.includes("12:00:00")) {
+                  console.log(data.list[i].dt_txt.includes("12:00:00"));
+                  var weeksWeather = {
+                    name: data.city.name,
+                    date: data.list[i].dt_txt.substr(0, 10),
+                    temp: data.list[i].main.temp,
+                    icon: data.list[i].weather[0].icon,
+                    humidity: data.list[i].main.humidity,
+                    description: data.list[i].weather[0].description,
+                    wind: data.list[i].wind.speed,
+                  };
+                  // if (hours === 14) {
                   // formatting for multiple cards
                   var weeklyContainer = document.createElement("div");
                   var weeklyHeader = document.createElement("h2");
@@ -130,7 +132,7 @@ function renderCities() {
                     weeklyIconCode +
                     "@2x.png";
                   weeklyContainer.setAttribute("class", "row");
-                  weeklyHeader.textContent = "Date: " + weeksWeather.date[i];
+                  weeklyHeader.textContent = "Date: " + weeksWeather.date;
                   console.log(weeksWeather);
                   weeklyHeader.setAttribute(
                     "class",
@@ -150,6 +152,7 @@ function renderCities() {
                   weeklyHeader.appendChild(weeklyHumidity);
                   weeklyHeader.appendChild(weeklyDescribeTemp);
                   weeklyHeader.appendChild(weeklyWindStatus);
+                  // }
                 }
               }
             }
