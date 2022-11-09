@@ -1,20 +1,13 @@
-/*
-TODO: Display days 2-5
-TODO: Retain search as selectable button
-TODO: remove text from search upon click
-*/
-
 var searchBtn = document.querySelector(".btn");
 var APIKey = "7b5f03654b5a109a294b890d0283e4e0";
 var cardContainer = document.getElementById("card-container");
+var weeklyCardContainer = document.getElementById("weekly-card-container");
 var citySearch = document.getElementById("location");
 var previousCities = document.getElementById("previous-cities");
 var recentCities = [];
 
 renderCities();
-//TODO: push pastCities into the recentCities array.
-//TODO: render all recentCities into buttons.
-// TODO: all generated buttons need to have the "past" class
+//this saves past searches into local storage
 function renderCities() {
   recentCities = [];
   previousCities.innerHTML = "";
@@ -36,7 +29,6 @@ function renderCities() {
 
   function getApi() {
     recentCities.push(citySearch.value);
-    // console.log(recentCities);
     localStorage.setItem("pastCities", JSON.stringify(recentCities));
     //api call to get the latitude and longitude based on the city name.
     var requestLatLon = `https://api.openweathermap.org/geo/1.0/direct?q=${citySearch.value}&limit=5&appid=${APIKey}`;
@@ -49,8 +41,6 @@ function renderCities() {
         console.log(data);
         var lat = data[0].lat;
         var lon = data[0].lon;
-        // console.log(lat);
-        // console.log(lon);
         //api call to push the retrieved lat/lon to retrieve weather information
         var requestWeather = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}&units=imperial`;
         fetch(requestWeather)
@@ -61,7 +51,7 @@ function renderCities() {
             console.log(data);
             var todaysWeather = {
               name: data.city.name,
-              date: data.list[0].dt_txt.substr(0, 10),
+              date: dayjs().format("YYYY-MM-DD"),
               temp: data.list[0].main.temp,
               icon: data.list[0].weather[0].icon,
               humidity: data.list[0].main.humidity,
@@ -99,13 +89,14 @@ function renderCities() {
               humidity.textContent =
                 "Humidity: " + todaysWeather.humidity + "%";
 
+              cardContainer.appendChild(weeklyCardContainer);
+              weeklyCardContainer.setAttribute(
+                "class",
+                "row justify-content-center"
+              );
+
               //display multiple cards
               for (let i = 0; i < 40; i++) {
-                // const dateInMilliseconds = data.list[i].dt * 1000;
-                // console.log(dateInMilliseconds);
-                // const useableDate = new Date(dateInMilliseconds);
-                // console.log(useableDate);
-                // const hours = useableDate.getHours();
                 if (data.list[i].dt_txt.includes("12:00:00")) {
                   console.log(data.list[i].dt_txt.includes("12:00:00"));
                   var weeksWeather = {
@@ -117,8 +108,6 @@ function renderCities() {
                     description: data.list[i].weather[0].description,
                     wind: data.list[i].wind.speed,
                   };
-                  // if (hours === 14) {
-                  // formatting for multiple cards
                   var weeklyContainer = document.createElement("div");
                   var weeklyHeader = document.createElement("h2");
                   var weeklyTemp = document.createElement("h3");
@@ -131,7 +120,7 @@ function renderCities() {
                     "http://openweathermap.org/img/wn/" +
                     weeklyIconCode +
                     "@2x.png";
-                  weeklyContainer.setAttribute("class", "row");
+                  weeklyContainer.setAttribute("class", "col-2");
                   weeklyHeader.textContent = "Date: " + weeksWeather.date;
                   console.log(weeksWeather);
                   weeklyHeader.setAttribute(
@@ -145,14 +134,13 @@ function renderCities() {
                     "Wind: " + weeksWeather.wind + " MPH";
                   weeklyHumidity.textContent =
                     "Humidity: " + weeksWeather.humidity + "%";
-                  cardContainer.appendChild(weeklyContainer);
+                  weeklyCardContainer.appendChild(weeklyContainer);
                   weeklyContainer.appendChild(weeklyHeader);
                   weeklyHeader.appendChild(weeklyIcon);
                   weeklyHeader.appendChild(weeklyTemp);
                   weeklyHeader.appendChild(weeklyHumidity);
                   weeklyHeader.appendChild(weeklyDescribeTemp);
                   weeklyHeader.appendChild(weeklyWindStatus);
-                  // }
                 }
               }
             }
